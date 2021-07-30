@@ -21,10 +21,10 @@ class Portfolio extends StatelessWidget {
             List<Post> posts = snapshot.data as List<Post>;
 
             var key = myMap.keys.elementAt(0);
-            print(myMap[key].toString());
+            // print(myMap[key].toString());
             Type type = myMap[key].runtimeType;
-            print(type);
-            print(myMap[key].elementAt(1));
+            // print(type);
+            // print(myMap[key].elementAt(1));
             double grandTotal = 0.0;
             // print(tempMap['BTC']);
             // String tempMap = myMap[key];
@@ -36,10 +36,8 @@ class Portfolio extends StatelessWidget {
                 double amount =
                     myMap[post.id.toString()].elementAt(1).toDouble();
                 int totalAmount = (amount * post.price).toInt();
-                print(post.id.toString() + " : " + post.price.toString());
-                print(post.id.toString() + " : " + totalAmount.toString());
                 grandTotal = grandTotal + totalAmount;
-                print("GRAND TOTAL:" + grandTotal.toString());
+                // print("GRAND TOTAL:" + grandTotal.toString());
                 return Card(
                     child: Column(
                   children: [

@@ -34,28 +34,28 @@ class HttpService {
 
     if (res.statusCode == 200) {
       print("Status 200");
-      print(res.body);
+      // print(res.body);
       Map<String, dynamic> mymap = jsonDecode(res.body);
 
-      print(mymap);
+      // print(mymap);
       List<Post> list = [];
       Post p = Post(id: '', price: 0.0);
       mymap.forEach((k, v) {
-        print('HERE: ' + v['usd'].toString());
         double thisPrice = v['usd'].toDouble();
         String thisId = k;
         p = Post(id: thisId, price: thisPrice);
         list.add(p);
+        // list.sort();
       });
-      list.forEach((element) {
-        print(element.id);
-      });
+      // list.forEach((element) {
+      //   print(element.id);
+      // });
       // List<dynamic> mbody = jsonDecode(res.body);
       // print(mbody.toString());
 
       // List<Post> posts =
       //     mbody.map((dynamic item) => Post.fromJson(item)).toList();
-      print("Posts list: " + list.toString());
+      // print("Posts list: " + list.toString());
       return list;
     } else {
       print("Error getting posts.");
