@@ -24,7 +24,7 @@ class HttpService {
 
     bodyUrl = bodyUrl.substring(0, bodyUrl.length - 1);
     String postsUrl = postsPreUrl + bodyUrl + postPostUrl;
-    print(postsUrl);
+    // print(postsUrl);
     return postsUrl;
   }
 
@@ -45,6 +45,7 @@ class HttpService {
         String thisId = k;
         p = Post(id: thisId, price: thisPrice);
         list.add(p);
+        list.sort((a, b) => b.price.compareTo(a.price));
         // list.sort();
       });
       // list.forEach((element) {
