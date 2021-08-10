@@ -19,7 +19,11 @@ class HttpService {
     Map thisHoldings = holdings.getHoldings();
 
     for (var v in thisHoldings.keys) {
-      bodyUrl = bodyUrl + v + "%2C";
+      if (v.toString() == "aave") {
+        bodyUrl = bodyUrl + v + "&";
+      } else {
+        bodyUrl = bodyUrl + v + "%2C";
+      }
     }
 
     bodyUrl = bodyUrl.substring(0, bodyUrl.length - 1);
@@ -33,6 +37,7 @@ class HttpService {
     Response res = await get(Uri.parse(postsUrl));
 
     if (res.statusCode == 200) {
+      print(postsUrl);
       print("Status 200");
       // print(res.body);
       Map<String, dynamic> mymap = jsonDecode(res.body);
@@ -46,6 +51,7 @@ class HttpService {
         p = Post(id: thisId, price: thisPrice);
         list.add(p);
         list.sort((a, b) => b.price.compareTo(a.price));
+        // list.sort((a, b) => a.price.compareTo(b.price));
         // list.sort();
       });
       // list.forEach((element) {

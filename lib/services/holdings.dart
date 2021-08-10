@@ -22,7 +22,7 @@ class Holdings {
     'pancakeswap-token': {'CAKE', 3884},
     'polkadex': {'PDEX', 2167},
     'ripple': {'XRP', 28161},
-    'stellar': {'XLM', 7598},
+    'stellar': {'XLM', 70598},
     'monero': {'XMR', 61},
     'ethereum-classic': {'ETC', 438},
     'xflr': {'XFLR', 0},
@@ -30,7 +30,7 @@ class Holdings {
     'neo': {'NEO', 2035},
     'solana': {'SOL', 436},
     'republic-protocol': {'REN', 65005},
-    'aave': {'AAVE', 50.8}
+    'aave': {'AAVE', 50.8},
   };
 
   Map getHoldings() {
