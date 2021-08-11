@@ -1,7 +1,7 @@
 class Holdings {
   Map tokenMap = {
-    'bitcoin': {'BTC', 13.2},
-    'ethereum': {'ETH', 250},
+    'bitcoin': {'BTC', 13.88},
+    'ethereum': {'ETH', 247.4},
     'polkadot': {'DOT', 15079},
     'dash': {'DASH', 34.9},
     'zcash': {'ZEC', 256},
