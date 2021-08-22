@@ -38,7 +38,7 @@ class HttpService {
     Response res = await get(Uri.parse(postsUrl));
 
     if (res.statusCode == 200) {
-      print(postsUrl);
+      //print(postsUrl);
       print("Status 200");
       // print(res.body);
       Map<String, dynamic> mymap = jsonDecode(res.body);

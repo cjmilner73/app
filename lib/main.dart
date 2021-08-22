@@ -1,4 +1,5 @@
 import 'package:app/portfolio.dart';
+import 'package:app/holdings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:app/posts.dart';
 
@@ -11,7 +12,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -32,9 +32,8 @@ class MyApp extends StatelessWidget {
           body: TabBarView(
             children: [
               PostPage(),
-              // Icon(Icons.directions_car),
               Icon(Icons.directions_transit),
-              Icon(Icons.directions_bike),
+              HoldingsPage(),
             ],
           ),
         ),
