@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:app/services/http_service.dart';
 import 'package:app/services/post_model.dart';
 import 'package:app/portcard.dart';
+import 'package:app/summary_card.dart';
 import 'package:app/pie.dart';
 import 'package:app/services/holdings.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:pie_chart/pie_chart.dart';
 // import 'dart:convert';
 
 class Portfolio extends StatelessWidget {
@@ -56,10 +56,8 @@ class Portfolio extends StatelessWidget {
               gTotal = gTotal + (amt * price);
             }
             print("GT: " + gTotal.toString());
-
-            RegExp reg = new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
-            Function mathFunc = (Match match) => '${match[1]},';
-            // String result = gTotal.toString().replaceAllMapped(reg, mathFunc);
+            double gTotalM = gTotal.toInt() / 1000000;
+            String value = gTotalM.toStringAsFixed(3);
 
             return Column(
               children: [
@@ -71,17 +69,7 @@ class Portfolio extends StatelessWidget {
                           builder: (context) => PiePage(holdingsMap)),
                     );
                   },
-                  child: Card(
-                      margin: EdgeInsets.all(10),
-                      child: Container(
-                        color: Colors.blue,
-                        padding: EdgeInsets.all(30),
-                        child: Text("" + gTotal.toInt().toString(),
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold)),
-                      )),
+                  child: SummaryCard(value: value, delta: "", deltaPercent: ""),
                 ),
                 Expanded(
                   child: ListView(

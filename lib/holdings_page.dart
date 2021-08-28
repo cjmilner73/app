@@ -28,7 +28,7 @@ class HoldingsPage extends StatelessWidget {
                           PortCard(
                               id: holding.id,
                               price: '0',
-                              amount: '0',
+                              amount: holding.amount.toString(),
                               total: '0')
                         ],
                       )

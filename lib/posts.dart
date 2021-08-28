@@ -6,11 +6,11 @@ import 'package:app/portfolio.dart';
 class PostPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    int noOfBTC = 12;
-
     return Scaffold(
       appBar: AppBar(
-        title: Text("Portfolio"),
+        backgroundColor: Colors.white,
+        title: Text("Portfolio",
+            style: TextStyle(fontSize: 30, color: Colors.black)),
       ),
       body: Portfolio(),
     );

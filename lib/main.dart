@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
                 Tab(icon: Icon(Icons.directions_bike)),
               ],
             ),
-            title: const Text('Demo'),
+            title: const Text('SCRYPTO'),
           ),
           body: TabBarView(
             children: [
