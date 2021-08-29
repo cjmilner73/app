@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:app/services/http_service.dart';
-import 'package:app/services/post_model.dart';
 import 'package:app/portfolio.dart';
 
 class PostPage extends StatelessWidget {

@@ -1,6 +1,5 @@
 import 'package:http/http.dart';
 import 'package:app/services/post_model.dart';
-import 'package:app/services/holdings.dart';
 import 'dart:convert';
 
 class HttpService {
@@ -13,22 +12,22 @@ class HttpService {
   // bitcoin%2Cethereum&vs_currencies=usd
 
   String formURL() {
-    Holdings holdings = new Holdings();
+    // Holdings holdings = new Holdings();
     String bodyUrl = "";
 
-    Map thisHoldings = holdings.getHoldings();
+    // Map thisHoldings = holdings.getHoldings();
 
-    for (var v in thisHoldings.keys) {
-      if (v.toString() == "aave") {
-        bodyUrl = bodyUrl + v + "&";
-      } else {
-        bodyUrl = bodyUrl + v + "%2C";
-      }
-    }
+    // for (var v in thisHoldings.keys) {
+    //   if (v.toString() == "aave") {
+    //     bodyUrl = bodyUrl + v + "&";
+    //   } else {
+    //     bodyUrl = bodyUrl + v + "%2C";
+    //   }
+    // }
 
-    bodyUrl = bodyUrl.substring(0, bodyUrl.length - 1);
-    String postsUrl = postsPreUrl + bodyUrl + postPostUrl;
-    postsUrl = "http://127.0.0.1:5000/holdings";
+    // bodyUrl = bodyUrl.substring(0, bodyUrl.length - 1);
+    // String postsUrl = postsPreUrl + bodyUrl + postPostUrl;
+    String postsUrl = "http://127.0.0.1:5000/holdings";
     // print(postsUrl);
     return postsUrl;
   }
@@ -36,7 +35,7 @@ class HttpService {
   Future<List<Post>> getPosts() async {
     String postsUrl = formURL();
     Response res = await get(Uri.parse(postsUrl));
-
+    print(res.statusCode);
     if (res.statusCode == 200) {
       //print(postsUrl);
       print("Status 200");

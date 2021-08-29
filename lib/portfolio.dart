@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:app/services/http_service.dart';
 import 'package:app/services/post_model.dart';
 import 'package:app/portcard.dart';
 import 'package:app/summary_card.dart';
 import 'package:app/pie.dart';
-import 'package:app/services/holdings.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:app/services/http_service.dart';
 // import 'dart:convert';
 
 class Portfolio extends StatelessWidget {
@@ -13,8 +12,8 @@ class Portfolio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Holdings holdings = new Holdings();
-    Map mapOfHoldings = holdings.getHoldings();
+    // Holdings holdings = new Holdings();
+    // Map mapOfHoldings = holdings.getHoldings();
 
     Map<String, double> holdingsMap = {};
 
@@ -49,6 +48,7 @@ class Portfolio extends StatelessWidget {
         future: httpService.getPosts(),
         builder: (BuildContext context, AsyncSnapshot<List<Post>> snapshot) {
           if (snapshot.hasData) {
+            print('Found DATA');
             List<Post> posts = snapshot.data as List<Post>;
 
             // var key = myMap.keys.elementAt(0);
@@ -60,7 +60,6 @@ class Portfolio extends StatelessWidget {
             // print(tempMap['BTC']);
             // String tempMap = myMap[key];
             // print(key.keys.elementAt(0));
-            double amt;
             double gTotal = 0.0;
             double price = 0.0;
             for (var i = 0; i < posts.length; i++) {
