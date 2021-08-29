@@ -32,7 +32,7 @@ class PortCard extends StatelessWidget {
                 height: 30,
                 width: 30,
               ),
-              Text("   ",
+              Text(" ",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               SizedBox(
                 width: 80,
@@ -41,7 +41,7 @@ class PortCard extends StatelessWidget {
                         TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               ),
               SizedBox(
-                width: 120,
+                width: 140,
                 child: Text(this.price,
                     style:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
