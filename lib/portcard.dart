@@ -23,6 +23,8 @@ class PortCard extends StatelessWidget {
       child: Column(
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.baseline,
+            textBaseline: TextBaseline.alphabetic,
             children: [
               Image.asset(
                 // 'assets/images/logos/cardano-ada-logo.png',
@@ -32,16 +34,25 @@ class PortCard extends StatelessWidget {
               ),
               Text("   ",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              Text(this.id,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              Text(":   ",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              Text(this.price,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              Text(":   ",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              SizedBox(
+                width: 80,
+                child: Text(this.id,
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              ),
+              SizedBox(
+                width: 120,
+                child: Text(this.price,
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              ),
               Text(total,
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              Text(" USD",
+                  style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.grey)),
             ],
           ),
           Divider(height: 10),
