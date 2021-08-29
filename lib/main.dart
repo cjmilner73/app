@@ -1,5 +1,3 @@
-import 'package:app/portfolio.dart';
-import 'package:app/holdings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:app/posts.dart';
 
@@ -33,7 +31,7 @@ class MyApp extends StatelessWidget {
             children: [
               PostPage(),
               Icon(Icons.directions_transit),
-              HoldingsPage(),
+              Icon(Icons.ac_unit)
             ],
           ),
         ),
