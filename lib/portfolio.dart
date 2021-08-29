@@ -29,6 +29,22 @@ class Portfolio extends StatelessWidget {
       }
     }
 
+    String formatNumber(double num) {
+      String retVal = "";
+      String tmpNum = "";
+
+      if (num > 1000000) {
+        num = num / 1000000;
+        tmpNum = num.toStringAsFixed(3);
+        retVal = tmpNum + "M";
+      } else if (num > 100000) {
+        num = num / 1000;
+        tmpNum = num.toStringAsFixed(1);
+        retVal = tmpNum + "K";
+      }
+      return retVal;
+    }
+
     return FutureBuilder(
         future: httpService.getPosts(),
         builder: (BuildContext context, AsyncSnapshot<List<Post>> snapshot) {
@@ -56,8 +72,10 @@ class Portfolio extends StatelessWidget {
               gTotal = gTotal + (amt * price);
             }
             print("GT: " + gTotal.toString());
-            double gTotalM = gTotal.toInt() / 1000000;
-            String value = gTotalM.toStringAsFixed(3);
+            // String value = gTotalM.toStringAsFixed(3);
+            String value = formatNumber(gTotal);
+            String delta = formatNumber(250958);
+            print("DELTA: " + delta);
 
             return Column(
               children: [
@@ -69,7 +87,8 @@ class Portfolio extends StatelessWidget {
                           builder: (context) => PiePage(holdingsMap)),
                     );
                   },
-                  child: SummaryCard(value: value, delta: "", deltaPercent: ""),
+                  child:
+                      SummaryCard(value: value, delta: delta, deltaPercent: ""),
                 ),
                 Expanded(
                   child: ListView(
