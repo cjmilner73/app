@@ -22,16 +22,19 @@ class PortCard extends StatelessWidget {
 
     if (num > 1000000) {
       num = num / 1000000;
-      tmpNum = num.toStringAsFixed(3);
+      tmpNum = num.toStringAsFixed(1);
       retVal = tmpNum + "M";
-    } else if (num > 100000) {
+    } else if (num > 10000) {
       num = num / 1000;
       tmpNum = num.toStringAsFixed(1);
       retVal = tmpNum + "K";
-    } else if (num > 100) {
+    } else if (num > 1000) {
       num = num / 1000;
       tmpNum = num.toStringAsFixed(1);
       retVal = tmpNum + "K";
+    } else {
+      tmpNum = num.toStringAsFixed(0);
+      retVal = tmpNum;
     }
     return retVal;
   }
