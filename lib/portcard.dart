@@ -29,8 +29,8 @@ class PortCard extends StatelessWidget {
               Image.asset(
                 // 'assets/images/logos/cardano-ada-logo.png',
                 "assets/images/logos/${this.id.toLowerCase()}.png",
-                height: 30,
-                width: 30,
+                height: 25,
+                width: 25,
               ),
               Text(" ",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
