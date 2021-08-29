@@ -28,7 +28,7 @@ class HttpService {
 
     bodyUrl = bodyUrl.substring(0, bodyUrl.length - 1);
     String postsUrl = postsPreUrl + bodyUrl + postPostUrl;
-    // postsUrl = "http://127.0.0.1:5000/test";
+    postsUrl = "http://127.0.0.1:5000/holdings";
     // print(postsUrl);
     return postsUrl;
   }
@@ -45,16 +45,29 @@ class HttpService {
 
       // print(mymap);
       List<Post> list = [];
-      Post p = Post(id: '', price: 0.0);
-      mymap.forEach((k, v) {
-        double thisPrice = v['usd'].toDouble();
-        String thisId = k;
-        p = Post(id: thisId, price: thisPrice);
+      List myList = mymap['holdings'];
+      // print(myList);
+      Post p = Post(id: '', price: 0.0, amount: 0);
+
+      for (var i = 0; i < myList.length; i++) {
+        print(myList[i]);
+        String thisId = myList[i]['id'];
+        double thisPrice = myList[i]['last_price'];
+        int thisAmount = myList[i]['amount'];
+        p = Post(id: thisId, price: thisPrice, amount: thisAmount);
         list.add(p);
         list.sort((a, b) => b.price.compareTo(a.price));
-        // list.sort((a, b) => a.price.compareTo(b.price));
-        // list.sort();
-      });
+      }
+
+      // mymap.forEach((k, v) {
+      //   double thisPrice = v['usd'].toDouble();
+      //   String thisId = k;
+      //   p = Post(id: thisId, price: thisPrice);
+      //   list.add(p);
+      //   list.sort((a, b) => b.price.compareTo(a.price));
+      //   // list.sort((a, b) => a.price.compareTo(b.price));
+      //   // list.sort();
+      // });
       // list.forEach((element) {
       //   print(element.id);
       // });

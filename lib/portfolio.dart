@@ -64,18 +64,16 @@ class Portfolio extends StatelessWidget {
             double gTotal = 0.0;
             double price = 0.0;
             for (var i = 0; i < posts.length; i++) {
-              // print(posts[i].price.toDouble());
-              amt = (mapOfHoldings[posts[i].id.toString()]
-                  .elementAt(1)
-                  .toDouble());
+              // amt = (mapOfHoldings[posts[i].id.toString()]
+              // .elementAt(1)
+              // .toDouble());
               price = posts[i].price.toDouble();
-              gTotal = gTotal + (amt * price);
+              gTotal = gTotal + (posts[i].amount * price);
             }
             print("GT: " + gTotal.toString());
             // String value = gTotalM.toStringAsFixed(3);
             String value = formatNumber(gTotal);
             String delta = formatNumber(250958);
-            print("DELTA: " + delta);
 
             return Column(
               children: [
@@ -93,28 +91,32 @@ class Portfolio extends StatelessWidget {
                 Expanded(
                   child: ListView(
                     children: posts.map((Post post) {
-                      String code =
-                          mapOfHoldings[post.id.toString()].elementAt(0);
-                      double amount = mapOfHoldings[post.id.toString()]
-                          .elementAt(1)
-                          .toDouble();
-                      // int totalAmount = (amount * post.price * 3.75).toInt();
+                      // String code =
+                      // mapOfHoldings[post.id.toString()].elementAt(0);
+                      // double amount = mapOfHoldings[post.id.toString()]
+                      //     .elementAt(1)
+                      //     .toDouble();
+                      int amount = post.amount;
                       int totalAmount = (amount * post.price).toInt();
                       grandTotal = grandTotal + totalAmount;
-                      holdingsMap[code] = totalAmount.toDouble();
-                      // print("GRAND TOTAL:" + grandTotal.toString());
+
+                      // holdingsMap[code] = totalAmount.toDouble();
+                      print("GRAND TOTAL:" + grandTotal.toString());
                       return GestureDetector(
                         // onTap: () => print('Tapped'),
-                        onTap: () => _launchURL(code),
+                        onTap: () => _launchURL(post.id),
                         child: Card(
                             child: Column(
                           children: [
                             PortCard(
-                              id: code,
-                              price: post.price.toString(),
-                              amount: amount.toString(),
-                              total: totalAmount.toString(),
-                            )
+                                id: post.id,
+                                price: post.price.toString(),
+                                // price: post.price.toString(),
+                                amount: post.amount.toString(),
+                                // total: totalAmount.toString(),
+                                total: (post.price * post.amount)
+                                    .toInt()
+                                    .toString())
                           ],
                         )
                             // subtitle: Text(post.price.toString()),
