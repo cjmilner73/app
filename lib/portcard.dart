@@ -16,6 +16,26 @@ class PortCard extends StatelessWidget {
 
   // final Map myMap = {'bitcoin': 'BTC'};
 
+  String formatNumber(double num) {
+    String retVal = "";
+    String tmpNum = "";
+
+    if (num > 1000000) {
+      num = num / 1000000;
+      tmpNum = num.toStringAsFixed(3);
+      retVal = tmpNum + "M";
+    } else if (num > 100000) {
+      num = num / 1000;
+      tmpNum = num.toStringAsFixed(1);
+      retVal = tmpNum + "K";
+    } else if (num > 100) {
+      num = num / 1000;
+      tmpNum = num.toStringAsFixed(1);
+      retVal = tmpNum + "K";
+    }
+    return retVal;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,7 +66,7 @@ class PortCard extends StatelessWidget {
                     style:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               ),
-              Text(total,
+              Text(formatNumber(double.parse(total)),
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               Text(" USD",
                   style: TextStyle(
