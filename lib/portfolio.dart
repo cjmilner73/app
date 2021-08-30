@@ -36,11 +36,16 @@ class Portfolio extends StatelessWidget {
         num = num / 1000000;
         tmpNum = num.toStringAsFixed(3);
         retVal = tmpNum + "M";
-      } else if (num > 100000) {
+      } else if (num > 1000) {
         num = num / 1000;
         tmpNum = num.toStringAsFixed(1);
         retVal = tmpNum + "K";
+      } else if (num > 10) {
+        retVal = num.toStringAsFixed(1);
+      } else {
+        retVal = num.toStringAsFixed(2);
       }
+
       return retVal;
     }
 
@@ -100,7 +105,6 @@ class Portfolio extends StatelessWidget {
                       grandTotal = grandTotal + totalAmount;
 
                       // holdingsMap[code] = totalAmount.toDouble();
-                      print("GRAND TOTAL:" + grandTotal.toString());
                       return GestureDetector(
                         // onTap: () => print('Tapped'),
                         onTap: () => _launchURL(post.id),
@@ -109,13 +113,11 @@ class Portfolio extends StatelessWidget {
                           children: [
                             PortCard(
                                 id: post.id,
-                                price: post.price.toString(),
+                                price: formatNumber(post.price).toString(),
                                 // price: post.price.toString(),
                                 amount: post.amount.toString(),
                                 // total: totalAmount.toString(),
-                                total: (post.price * post.amount)
-                                    .toInt()
-                                    .toString())
+                                total: post.total.toString()),
                           ],
                         )
                             // subtitle: Text(post.price.toString()),

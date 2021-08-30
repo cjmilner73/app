@@ -46,16 +46,20 @@ class HttpService {
       List<Post> list = [];
       List myList = mymap['holdings'];
       // print(myList);
-      Post p = Post(id: '', price: 0.0, amount: 0);
+      Post p = Post(id: '', price: 0.0, amount: 0, total: 0);
 
       for (var i = 0; i < myList.length; i++) {
         print(myList[i]);
         String thisId = myList[i]['id'];
         double thisPrice = myList[i]['last_price'];
         int thisAmount = myList[i]['amount'];
-        p = Post(id: thisId, price: thisPrice, amount: thisAmount);
+        p = Post(
+            id: thisId,
+            price: thisPrice,
+            amount: thisAmount,
+            total: thisAmount * thisPrice);
         list.add(p);
-        list.sort((a, b) => b.price.compareTo(a.price));
+        list.sort((a, b) => b.total.compareTo(a.total));
       }
 
       // mymap.forEach((k, v) {
