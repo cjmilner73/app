@@ -6,7 +6,7 @@ import json
 from config2 import config
 
 def get_prices(url):
-    urlFull = 'https://api.coingecko.com/api/v3/simple/price?ids=' + url + '&vs_currencies=usd'
+    urlFull = 'https://api.coingecko.com/api/v3/simple/price?ids=' + url + '&vs_currencies=usd&include_24hr_change=true'
     print(urlFull)
     # r =requests.get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cethereum&vs_currencies=usd')
     r = requests.get(urlFull)
@@ -31,10 +31,12 @@ def get_holdings():
         for myHolding in myHoldingsList:
             if (k == myHolding['name']): 
                 print(myHolding['amount'])
-                print(k)
                 print(v['usd'])
+                print("24 hour change")
+                print(v['usd_24h_change'])
                 # bodyDict = {'name': 'ethereum', 'id': 'ETH', 'amount': 0, 'last_price': 1.0}
-                bodyDict = {"name": k, "id": myHolding['id'], "amount": myHolding['amount'], "last_price": v['usd']}
+                formatShortChange = f"{v['usd_24h_change']:.2}"
+                bodyDict = {"name": k, "id": myHolding['id'], "amount": myHolding['amount'], "last_price": v['usd'], "day_change": formatShortChange}
                 update_prices(k, bodyDict)
                 # url = 'http://127.0.0.1:5000/holdings'
                 # x = requests.post(url, json = json.dumps(myobj))
@@ -49,9 +51,9 @@ def update_prices(name, body):
 
 
 # if __name__ == '__main__':
-get_holdings()
-# update_prices('bitcoin', {})
+#get_holdings()
 schedule.every(15).minutes.do(get_holdings)
+#put_24_price()
 
 while True:
     schedule.run_pending()

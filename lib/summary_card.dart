@@ -13,10 +13,11 @@ class SummaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: new BoxDecoration(color: Color(0xFFFFFBE6)),
       padding: EdgeInsets.all(10),
       child: Column(
         children: [
-          SizedBox(height: 20),
+          SizedBox(height: 10),
           Row(
               crossAxisAlignment: CrossAxisAlignment.baseline,
               textBaseline: TextBaseline.alphabetic,
@@ -49,7 +50,7 @@ class SummaryCard extends StatelessWidget {
               SizedBox(width: 10),
               Text("VALUE", style: TextStyle(fontSize: 10, color: Colors.grey)),
             ],
-          )
+          ),
         ],
       ),
     );

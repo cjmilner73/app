@@ -36,10 +36,17 @@ class Portfolio extends StatelessWidget {
         num = num / 1000000;
         tmpNum = num.toStringAsFixed(3);
         retVal = tmpNum + "M";
-      } else if (num > 1000) {
+      } else if (num > 100000) {
         num = num / 1000;
         tmpNum = num.toStringAsFixed(1);
         retVal = tmpNum + "K";
+      } else if (num > 10000) {
+        num = num / 1000;
+        tmpNum = num.toStringAsFixed(2);
+        retVal = tmpNum + "K";
+      } else if (num > 1000) {
+        tmpNum = num.toStringAsFixed(0);
+        retVal = tmpNum;
       } else if (num > 10) {
         retVal = num.toStringAsFixed(1);
       } else {
@@ -53,7 +60,6 @@ class Portfolio extends StatelessWidget {
         future: httpService.getPosts(),
         builder: (BuildContext context, AsyncSnapshot<List<Post>> snapshot) {
           if (snapshot.hasData) {
-            print('Found DATA');
             List<Post> posts = snapshot.data as List<Post>;
 
             // var key = myMap.keys.elementAt(0);
@@ -93,37 +99,41 @@ class Portfolio extends StatelessWidget {
                       SummaryCard(value: value, delta: delta, deltaPercent: ""),
                 ),
                 Expanded(
-                  child: ListView(
-                    children: posts.map((Post post) {
-                      // String code =
-                      // mapOfHoldings[post.id.toString()].elementAt(0);
-                      // double amount = mapOfHoldings[post.id.toString()]
-                      //     .elementAt(1)
-                      //     .toDouble();
-                      int amount = post.amount;
-                      int totalAmount = (amount * post.price).toInt();
-                      grandTotal = grandTotal + totalAmount;
+                  child: Container(
+                    decoration: new BoxDecoration(color: Colors.grey[300]),
+                    child: ListView(
+                      children: posts.map((Post post) {
+                        // String code =
+                        // mapOfHoldings[post.id.toString()].elementAt(0);
+                        // double amount = mapOfHoldings[post.id.toString()]
+                        //     .elementAt(1)
+                        //     .toDouble();
+                        int amount = post.amount;
+                        int totalAmount = (amount * post.price).toInt();
+                        grandTotal = grandTotal + totalAmount;
 
-                      // holdingsMap[code] = totalAmount.toDouble();
-                      return GestureDetector(
-                        // onTap: () => print('Tapped'),
-                        onTap: () => _launchURL(post.id),
-                        child: Card(
-                            child: Column(
-                          children: [
-                            PortCard(
-                                id: post.id,
-                                price: formatNumber(post.price).toString(),
-                                // price: post.price.toString(),
-                                amount: post.amount.toString(),
-                                // total: totalAmount.toString(),
-                                total: post.total.toString()),
-                          ],
-                        )
-                            // subtitle: Text(post.price.toString()),
-                            ),
-                      );
-                    }).toList(),
+                        // holdingsMap[code] = totalAmount.toDouble();
+                        return GestureDetector(
+                          // onTap: () => print('Tapped'),
+                          onTap: () => _launchURL(post.id),
+                          child: Card(
+                              child: Column(
+                            children: [
+                              PortCard(
+                                  id: post.id,
+                                  price: formatNumber(post.price).toString(),
+                                  // price: post.price.toString(),
+                                  amount: post.amount.toString(),
+                                  // total: totalAmount.toString(),
+                                  total: post.total.toString(),
+                                  day_change: post.day_change.toString()),
+                            ],
+                          )
+                              // subtitle: Text(post.price.toString()),
+                              ),
+                        );
+                      }).toList(),
+                    ),
                   ),
                 ),
               ],
