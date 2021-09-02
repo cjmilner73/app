@@ -111,6 +111,7 @@ def handle_prices(holding_name):
         holding.id = data['id']
         holding.amount = data['amount']
         holding.last_price = data['last_price']
+        holding.day_change = data['day_change']
         db.session.add(holding)
         db.session.commit()
         return {"message": f"holding {holding.name} successfully updated"}

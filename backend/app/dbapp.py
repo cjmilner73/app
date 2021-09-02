@@ -31,12 +31,14 @@ def get_holdings():
     for k,v in pricesDict.items():
         for myHolding in myHoldingsList:
             if (k == myHolding['name']): 
+                print(' ')
                 print(myHolding['amount'])
                 print(v['usd'])
                 print("24 hour change")
                 print(v['usd_24h_change'])
                 # bodyDict = {'name': 'ethereum', 'id': 'ETH', 'amount': 0, 'last_price': 1.0}
                 formatShortChange = f"{v['usd_24h_change']:.2}"
+                print(formatShortChange)
                 bodyDict = {"name": k, "id": myHolding['id'], "amount": myHolding['amount'], "last_price": v['usd'], "day_change": formatShortChange}
                 update_prices(k, bodyDict)
                 total = total + (myHolding['amount'] * v['usd'])
