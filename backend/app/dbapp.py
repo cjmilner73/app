@@ -16,6 +16,7 @@ def get_holdings():
     r1 =requests.get('http://127.0.0.1:5000/holdings')
     # Form URL from holdings
     
+    total=0
     print(r1.text)
     myHoldingsDict = r1.json()
     myHoldingsList = myHoldingsDict['holdings']
@@ -38,9 +39,14 @@ def get_holdings():
                 formatShortChange = f"{v['usd_24h_change']:.2}"
                 bodyDict = {"name": k, "id": myHolding['id'], "amount": myHolding['amount'], "last_price": v['usd'], "day_change": formatShortChange}
                 update_prices(k, bodyDict)
+                total = total + (myHolding['amount'] * v['usd'])
                 # url = 'http://127.0.0.1:5000/holdings'
                 # x = requests.post(url, json = json.dumps(myobj))
                 # print(x.text)               
+    epoch_time = int(time.time())
+    totalhistBody = {'time_stamp': epoch_time, 'amount': int(total)}
+    update_totalhists(totalhistBody)
+    print(totalhistBody)
                        
 def update_prices(name, body):
     # body = {"name": "bitcoin", "id": "BTC", "amount": 500, "last_price": 2.5}
@@ -49,12 +55,20 @@ def update_prices(name, body):
     r1 =requests.put(url, json=json.dumps(body))
     print(r1)
 
+def update_totalhists(body):
+    print(body)
+    toSend = json.dumps(body)
+    print(type(body))
+    url = 'http://127.0.0.1:5000/totalhist'
+    #r1 =requests.post(url, json=json.dumps(body))
+    r1 =requests.post(url, json=body)
+    print(r1)
 
 # if __name__ == '__main__':
-#get_holdings()
+get_holdings()
 schedule.every(15).minutes.do(get_holdings)
 #put_24_price()
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+# while True:
+#     schedule.run_pending()
+#     time.sleep(1)

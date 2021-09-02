@@ -100,7 +100,7 @@ class Portfolio extends StatelessWidget {
                 ),
                 Expanded(
                   child: Container(
-                    decoration: new BoxDecoration(color: Colors.grey[300]),
+                    decoration: new BoxDecoration(color: Color(0xFFFFFBE6)),
                     child: ListView(
                       children: posts.map((Post post) {
                         // String code =

@@ -14,6 +14,7 @@ class SummaryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: new BoxDecoration(color: Color(0xFFFFFBE6)),
+      // decoration: new BoxDecoration(color: Color(0xFFFFFBE6)),
       padding: EdgeInsets.all(10),
       child: Column(
         children: [
