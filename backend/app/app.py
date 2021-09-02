@@ -29,12 +29,14 @@ class HoldingModel(db.Model):
     id = db.Column(db.String())
     amount = db.Column(db.Integer)
     last_price = db.Column(db.DECIMAL(asdecimal=False))
+    day_change = db.Column(db.DECIMAL(asdecimal=False))
 
-    def __init__(self, id, name, amount, last_price):
+    def __init__(self, id, name, amount, last_price, day_change):
         self.id = id
         self.name = name
         self.amount = amount
         self.last_price = last_price
+        self.day_change = day_change
 
     def __repr__(self):
         return f"<Holding {self.name}>"
@@ -56,12 +58,26 @@ class TransHistModel(db.Model):
     def __repr__(self):
         return f"<TransHist {self.name}>"
 
+class TotalHistModel(db.Model):
+    __tablename__ = 'totalhist'
+
+    time_stamp = db.Column(db.Integer, primary_key=True)
+    amount = db.Column(db.Integer)
+
+    def __init__(self, time_stamp, amount):
+        self.time_stamp = time_stamp
+        self.amount = amount
+
+    def __repr__(self):
+        return f"<TotalHist {self.name}>"
+
 @app.route('/holdings', methods=['POST', 'GET'])
 def handle_holdings():
     if request.method == 'POST':
         if request.is_json:
             data = request.get_json()
-            new_holding = HoldingModel(name=data['name'], id=data['id'], amount=data['amount'], last_price=data['last_price'])
+            print(type(data))
+            new_holding = HoldingModel(name=data['name'], id=data['id'], amount=data['amount'], last_price=data['last_price'], day_change=['day_change'])
             db.session.add(new_holding)
             db.session.commit()
             return {"message": f"holding {new_holding.name} has been created successfully."}
@@ -76,11 +92,11 @@ def handle_holdings():
                 "name": holding.name,
                 "id": holding.id,
 		"amount": holding.amount,
-		"last_price": holding.last_price
+		"last_price": holding.last_price,
+		"day_change": holding.day_change
             } for holding in holdings]
 
         return {"holdings": results}
-        # return {"count": len(results), "holdings": results}
 
 @app.route('/prices/<holding_name>', methods=['PUT'])
 def handle_prices(holding_name):
@@ -98,3 +114,26 @@ def handle_prices(holding_name):
         db.session.add(holding)
         db.session.commit()
         return {"message": f"holding {holding.name} successfully updated"}
+
+@app.route('/totalhist', methods=['POST', 'GET'])
+def handle_totalhist():
+    if request.method == 'POST':
+        if request.is_json:
+            data = request.get_json()
+            print(type(data))
+            new_totalhist = TotalHistModel(time_stamp=data['time_stamp'], amount=data['amount'])
+            db.session.add(new_totalhist)
+            db.session.commit()
+            return {"message": f"holding {new_totalhist.time_stamp} has been created successfully."}
+        else:
+            return {"error": "The request payload is not in JSON format"}
+
+    elif request.method == 'GET':
+        totalhists = TotalHistModel.query.all()
+        results = [
+            {
+                "time_stamp": totalhist.time_stamp,
+		"amount": totalhist.amount,
+            } for totalhist in totalhists]
+
+        return {"totalhists": results}
