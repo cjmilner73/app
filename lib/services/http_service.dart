@@ -38,7 +38,6 @@ class HttpService {
     print(res.statusCode);
     if (res.statusCode == 200) {
       //print(postsUrl);
-      print("Status 200");
       // print(res.body);
       Map<String, dynamic> mymap = jsonDecode(res.body);
 
@@ -49,7 +48,6 @@ class HttpService {
       Post p = Post(id: '', price: 0.0, amount: 0, total: 0, day_change: 0.0);
 
       for (var i = 0; i < myList.length; i++) {
-        print(myList[i]);
         String thisId = myList[i]['id'];
         double thisPrice = myList[i]['last_price'];
         int thisAmount = myList[i]['amount'];

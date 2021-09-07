@@ -1,3 +1,4 @@
+import 'package:app/services/my_custom_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:app/services/post_model.dart';
 import 'package:app/portcard.dart';
@@ -7,9 +8,15 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:app/services/http_service.dart';
 // import 'dart:convert';
 
-class Portfolio extends StatelessWidget {
+class Portfolio extends StatefulWidget {
+  @override
+  _PortfolioState createState() => _PortfolioState();
+}
+
+class _PortfolioState extends State<Portfolio> {
   final HttpService httpService = HttpService();
 
+  bool showValues = true;
   @override
   Widget build(BuildContext context) {
     // Holdings holdings = new Holdings();
@@ -27,6 +34,9 @@ class Portfolio extends StatelessWidget {
         throw 'Could not launch $url';
       }
     }
+
+    IconData eyeIcon = MyCustomIcons.eye;
+    IconData eyeSlashIcon = MyCustomIcons.eye_slash;
 
     String formatNumber(double num) {
       String retVal = "";
@@ -80,13 +90,34 @@ class Portfolio extends StatelessWidget {
               price = posts[i].price.toDouble();
               gTotal = gTotal + (posts[i].amount * price);
             }
-            print("GT: " + gTotal.toString());
             // String value = gTotalM.toStringAsFixed(3);
             String value = formatNumber(gTotal);
             String delta = formatNumber(250958);
 
             return Column(
               children: [
+                Container(
+                  color: Color(0xFFFFFBE6),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: IconButton(
+                            icon:
+                                showValues ? Icon(eyeIcon) : Icon(eyeSlashIcon),
+                            onPressed: () {
+                              setState(() {
+                                showValues = !showValues;
+                              });
+                            },
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -125,7 +156,9 @@ class Portfolio extends StatelessWidget {
                                   // price: post.price.toString(),
                                   amount: post.amount.toString(),
                                   // total: totalAmount.toString(),
-                                  total: post.total.toString(),
+                                  total: showValues
+                                      ? "0.0000".toString()
+                                      : post.total.toString(),
                                   day_change: post.day_change.toString()),
                             ],
                           )
